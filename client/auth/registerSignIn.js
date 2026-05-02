@@ -28,11 +28,16 @@ function authRequest(endpoint, data) {
   return consume(endpoint, headers, data).then((res) =>
     saveAuthToken(res.body?.token)
   ).catch((err) => {
-    const authErrorMessage =
-      err.response?.body?.errorType
-    const errMessage =
-      err.response?.body?.error?.title
-    throw new Error(authErrorMessage || errMessage || err.message)
+    const body = err.response?.body
+    const code = body?.errorType
+    const detail =
+      typeof body?.error === 'string'
+        ? body.error
+        : body?.error?.title
+    const parts = [code, detail].filter(Boolean)
+    throw new Error(
+      parts.length ? parts.join(': ') : err.message || 'Request failed'
+    )
   })
 }
 

@@ -19,11 +19,19 @@ export function receiveLogin (user) {
 }
 
 export function loginError (message) {
+  const text =
+    message instanceof Error
+      ? message.message
+      : typeof message === 'string'
+        ? message
+        : message != null
+          ? String(message)
+          : ''
   return {
     type: 'LOGIN_FAILURE',
     isFetching: false,
     isAuthenticated: false,
-    message
+    message: text,
   }
 }
 
