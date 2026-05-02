@@ -5,14 +5,37 @@ Gotta collect 'em all!
 
 ## Set up instructions:
 
+Requires **Node 24.x** (see `engines` in `package.json`).
+
 * Clone the repo
 * Create branch according to feature you are working on
+
 ```sh
 npm install
 cp .env.example .env 
 npm run knex migrate:latest
 npm run knex seed:run
+npm run build
+npm run dev
 ```
+
+Webpack watches the client into the repo-root `public/` folder (used locally by Express and by Vercel’s CDN). The build enables OpenSSL’s legacy provider on Node 17+ because this project still uses Webpack 4.
+
+## Deploy on Vercel
+
+1. Import the repo in Vercel (defaults pick up root `app.js` as the Express entry).
+2. Set environment variables in the project:
+   - `JWT_SECRET` — signing secret for auth tokens (use a strong value).
+   - `DATABASE_URL` — PostgreSQL connection string (for example Neon). SSL defaults on; set `DATABASE_SSL=false` only if your DB does not use TLS.
+   - `BLOB_READ_WRITE_TOKEN` — from [Vercel Blob](https://vercel.com/docs/storage/vercel-blob); required for profile photo uploads on Vercel (local dev writes to `public/uploads/` instead).
+3. After the first deploy, run migrations (and optional seeds) against the production database from your machine or CI, with `NODE_ENV=production` and `DATABASE_URL` set, for example:
+
+```sh
+NODE_ENV=production npm run knex migrate:latest
+NODE_ENV=production npm run knex seed:run
+```
+
+Vercel serves files under `public/` from the edge; the Express app handles `/api/v1/*`. Heroku-specific npm scripts were removed in favour of this layout.
 
 ## User Stories
 

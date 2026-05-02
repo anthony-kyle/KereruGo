@@ -17,22 +17,13 @@ const { getUserBadges, addToCount, addBadge } = require("../db/users");
 const { getImage, addImage } = require("../db/users");
 
 const router = express.Router();
-const path = require("path");
 
 const multer = require("multer");
-const uploadPath = path.join(__dirname, "../public", "uploads");
-
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, uploadPath);
-  },
-  filename: function (req, file, cb) {
-    cb(null, new Date().toISOString() + file.originalname);
-  },
-});
+const { persistProfileImage } = require("../lib/persistProfileImage");
 
 const upload = multer({
-  storage: storage,
+  storage: multer.memoryStorage(),
+  limits: { fileSize: 5 * 1024 * 1024 },
 });
 
 //Beneath this, we will write the post/get routes for the image upload.
@@ -295,14 +286,18 @@ function addEntry(req, res) {
   addScrapbookEntry(entry).then((count) => res.json(count[0]));
 }
 
-function insertImage(req, res) {
-  console.log('insertImage')
-  const user_id = req.params.id;
-  const indexOf = req.file.path.indexOf('/uploads')
-  const user_img = req.file.path.slice(indexOf);
-  return addImage(user_id, user_img).then((res) => {
-    res.body;
-  });
+async function insertImage(req, res, next) {
+  try {
+    const user_id = req.params.id;
+    if (!req.file) {
+      return res.status(400).json({ message: "No image uploaded." });
+    }
+    const user_img = await persistProfileImage(req.file);
+    await addImage(user_id, user_img);
+    return res.json({ user_img });
+  } catch (err) {
+    next(err);
+  }
 }
 
 function errorHandler(err, req, res, next) {

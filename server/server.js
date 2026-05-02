@@ -15,7 +15,8 @@ if(process.env.NODE_ENV === 'production') {
   })
 }
 server.use(express.json())
-server.use(express.static(path.join(__dirname, 'public')))
+const publicRoot = path.join(__dirname, '..', 'public')
+server.use(express.static(publicRoot))
 
 
 server.use('/api/v1', authRoutes)

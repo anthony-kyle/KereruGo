@@ -1,5 +1,6 @@
 const path = require('path')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = {
   entry: [
@@ -7,7 +8,7 @@ module.exports = {
     './client/styles/index.scss',
   ],
   output: {
-    path: path.join(__dirname, 'server', 'public'),
+    path: path.join(__dirname, 'public'),
     filename: 'bundle.js',
   },
   mode: 'development',
@@ -16,6 +17,12 @@ module.exports = {
       filename: 'styles.css',
       chunkFilename: '[id].css',
       ignoreOrder: false, // Enable to remove warnings about conflicting order
+    }),
+    new CopyWebpackPlugin({
+      patterns: [
+        { from: path.join(__dirname, 'server', 'public', 'images'), to: 'images' },
+        { from: path.join(__dirname, 'server', 'public', 'index.html'), to: 'index.html' },
+      ],
     }),
   ],
   module: {
@@ -32,7 +39,12 @@ module.exports = {
             loader: MiniCssExtractPlugin.loader
           },
           'css-loader',
-          'sass-loader',
+          {
+            loader: 'sass-loader',
+            options: {
+              implementation: require('sass'),
+            },
+          },
         ],
       },
     ]
