@@ -1,4 +1,4 @@
-const { generateHash } = require('authenticare/server')
+const { generateHash } = require('../../lib/auth/password')
 
 exports.seed = function (knex) {
   // Deletes ALL existing entries

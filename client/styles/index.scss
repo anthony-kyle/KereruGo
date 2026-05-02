@@ -1,12 +1,11 @@
 @charset "utf-8";
 
+@use './variables.scss' as *;
+
 // Import a Google Font
 @import url('https://fonts.googleapis.com/css?family=Lato:400,700');
 
-// Import custom variables and Bulma overides
-@import './variables.scss';
-
-// Import only what you need from Bulma
+// Import only what you need from Bulma (Bulma 0.9 Sass still uses @import)
 @import '../../node_modules/bulma/sass/utilities/_all.sass';
 @import '../../node_modules/bulma/sass/base/_all.sass';
 @import '../../node_modules/bulma/sass/elements/button.sass';
@@ -53,7 +52,8 @@ a.navbar-item.is-active,
   height: 90vh;
   max-height: 90.1vh;
   border-radius: 15px;
-  background-color: rgb(246, 255, 206);
+  background-color: #9e9364;
+  
 
   &.auth {
     display: flex;
@@ -165,12 +165,36 @@ a.navbar-item.is-active,
 }
 
 h1.has-text-white {
-  color: white;
+  color: rgb(49, 21, 27);
   font-style: italic;
 
   a {
     color: inherit;
   }
+}
+
+h1.has-text-brown,
+h5.has-text-brown {
+  color: rgb(49, 21, 27);
+  // font-style: italic;
+
+  a {
+    color: inherit;
+  }
+}
+
+div.has-text-brown {
+  color: rgb(49, 21, 27);
+  
+
+  a {
+    color: inherit;
+  }
+}
+
+div.has-text-white {
+  color: #efefef;
+  
 }
 
 .image-container {
@@ -228,6 +252,7 @@ h1.has-text-white {
 
 .birdDetails {
   padding: 1em;
+  
 }
 
 // .mapboxgl-map button {
@@ -305,18 +330,27 @@ a {
   }
 }
 
+.cluster-marker {
+  color: $light-color;
+  background: rgb(49, 21, 27);
+  border-radius: 50%;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .marker-btn {
   background: none;
   border: none;
   cursor: pointer;
-
-  img {
-  width: 75px;
-  height: 75px;
-  border-radius: 50%;
-  }
 }
 
+.fa-feather-alt:before {
+  content: "\f56b";
+  font-size: 1.4rem;
+  color: #2D161B;
+}
 .overlays {
   position: relative;
 
@@ -391,7 +425,7 @@ a {
     border-radius: 1em;
 
     &::-webkit-progress-bar {
-      background-color: #f3f3f3;
+      background-color: #b5bd91;
       border: solid 1px $color-semi-transparent;
       border-radius: 1em;
     }
@@ -484,7 +518,7 @@ a {
       rgba(121, 38, 5, 0.404),
       rgba(121, 38, 5, 0.404)
     ),
-    url('/images/navImage.jpg');
+    url('../../server/public/images/navImage.jpg');
   background-size: cover;
 }
 
@@ -496,26 +530,67 @@ a {
   padding-top: 100px;
 }
 
+
+
+
+.user-profile-img {
+  position: relative;
+  display: grid;
+  padding-top: 100px;
+  place-items: center;
+
+  img {
+  width: 300px;
+  height: auto;
+  border-radius: 50%;
+  }
+
+  
+}
+.imageToggle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 1em;
+}
+.hidden {
+  display: none;
+}
+
 .badge {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 20px;
+  margin: 2em 0px;
 }
 
 .bronze-medal {
-  color: #AD8A56;
+  color: #6A3805;
 }
 
 .silver-medal {
-  color: #B4B4B4;
+  color: #D7D7D7;
 }
 
 .gold-medal {
-  color: #C9B037;
+  color: #FFDF46;
 }
 
 .user-icon {
   font-size: 150px;
+  color: $color-semi-transparent;
+}
+
+.main-title {
+  color: #b5bd91;
+}
+
+.bird-name {
+  color: rgba(121, 38, 5, 0.404);
+}
+
+.value {
+  color: #ece8e8;
 }

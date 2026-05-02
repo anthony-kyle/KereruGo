@@ -4,6 +4,7 @@ exports.up = function(knex) {
     table.string('bird_name')
     table.string('bird_english_name')
     table.string('bird_img')
+    table.string('bird_audio')
     table.string('bird_rarity')
     table.boolean('bird_nocturnal')
     table.string('bird_tag')

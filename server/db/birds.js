@@ -4,6 +4,12 @@ function getAllHabitats (db = connection) {
   return db('habitats').select()
 }
 
+function getHabitatsByBirdId (bird_id, db = connection) {
+  return db('habitats')
+  .join('birds_habitats', 'habitats.id', 'birds_habitats.habitat_id')
+  .where('bird_id', bird_id)
+}
+
 function getAllBirdTypes (db = connection) {
   return db('birds').select()
 }
@@ -41,6 +47,7 @@ function addScrapbookEntry (entry, db = connection) {
 
 module.exports = {
   getAllHabitats,
+  getHabitatsByBirdId,
   getAllBirdTypes,
   getBirdById,
   getAllLocations,

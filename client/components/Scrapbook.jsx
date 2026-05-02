@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { HashRouter as Router, Link } from "react-router-dom";
+import { HashRouter as Router, Link} from "react-router-dom";
 import { apiGetUserScrapbook } from "../apis/index";
 import { receiveScrapbook } from "../actions/scrapbook";
 import BackLink from './BackLink'
@@ -11,11 +11,11 @@ export class Scrapbook extends React.Component {
       this.props.dispatch(receiveScrapbook(scrapbook))
     );
   }
-
   render() {
+   
     return (
       <div className='card is-centered mx-4 scrollable scrapbook'>
-        <h2 className="has-text-centered pt-4">SCRAPBOOK</h2>
+        <h2 className="has-text-centered is-uppercase pt-4 has-text-weight-light is-size-4">{this.props.auth.user.username}'s scrapbook</h2>
         <div className="birds">
           {this.props.scrapbook.map((item) => {
             return (
@@ -28,17 +28,15 @@ export class Scrapbook extends React.Component {
                       alt={`${item.birdName}`}
                     />
                   </div>
-                  <h5 className="has-text-centered">{item.birdName}</h5>
+                  <h5 className="bird-name has-text-brown has-text-centered has-text-weight-bold">{item.birdName}</h5>
                 </div>
               </Link>
             );
           })}
         </div>
         <BackLink
-        inline='inline'
-          action={() => {
-            this.props.history.goBack();
-          }}
+          inline='inline'
+          destination='/nav'
         />
       </div>
     );

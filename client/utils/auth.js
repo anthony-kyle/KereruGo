@@ -1,4 +1,4 @@
-import { isAuthenticated as authIsAuthenticated, getDecodedToken, logOff } from 'authenticare/client'
+import { isAuthenticated as authIsAuthenticated, getDecodedToken, logOff } from '../auth/session'
 
 export function isAuthenticated () {
   return authIsAuthenticated()

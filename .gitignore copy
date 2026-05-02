@@ -1,0 +1,12 @@
+node_modules
+static
+npm-debug.log
+dev.sqlite3
+bundle.js*
+.env
+coverage
+server/public/styles*
+client/styles/*.css
+
+# Webpack output + copied static assets (see webpack.config.js)
+public/

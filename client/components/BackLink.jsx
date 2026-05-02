@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 
 class BackLink extends React.Component {
   render() {
-    return <div className={`navLink ${this.props.inline ? this.props.inline : ''}`}><Link to="/#" onClick={this.props.action}><i className="fas fa-times"></i></Link></div>
+    return <div className={`navLink ${this.props.inline ? this.props.inline : ''}`}><Link to={this.props.destination}><i className="fas fa-times"></i></Link></div>
 
   }
 }

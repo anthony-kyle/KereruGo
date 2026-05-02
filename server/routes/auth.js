@@ -1,5 +1,5 @@
 const express = require('express')
-const { applyAuthRoutes } = require('authenticare/server')
+const { applyAuthRoutes } = require('../lib/auth/routes')
 
 const { userExists, getUserByUsername, createUser } = require('../db/users')
 

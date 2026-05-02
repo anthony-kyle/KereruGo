@@ -24,13 +24,11 @@ export class App extends React.Component {
     return (
       <>
         <Router>
-          <div
-            id="body-content"
-            className="container content is-full"
-          >
+          <div id="body-content" className="container content is-full">
             <h1 className="has-text-white pt-3 has-text-centered">
               <Link to="/">KererūGo</Link>
             </h1>
+            
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
             <Route path="/nav" component={Nav} />
@@ -38,12 +36,18 @@ export class App extends React.Component {
               <>
                 <Route exact path="/" component={Map} />
                 <Route path="/map" component={Map} />
-                <Route path="/bird/:id" component={BirdProfile} />
+                <Route exact path="/bird/:id" component={BirdProfile} />
+                <Route path="/bird/:id/encounter" component={BirdProfile} />
                 <Route path="/scrapbook" component={Scrapbook} />
                 <Route path="/profile" component={Profile} />
               </>
             )}
-            {!auth.isAuthenticated && <Route exact path="/" component={Nav} />}
+            {!auth.isAuthenticated && 
+              <>
+                <Route exact path="/" component={Nav} />
+                <Redirect to='/' />
+              </>
+            }
           </div>
         </Router>
       </>

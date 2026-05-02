@@ -30,9 +30,9 @@ test('App has some routes when not logged in', () => {
   expect(actual).toEqual(expected)
 })
 
-test('App has one less route when logged in', () => {
-  // Arrange
-  const expected = 8
+test('App has more routes when logged in', () => {
+  // Arrange (login, register, nav + authenticated map/bird/scrapbook/profile routes)
+  const expected = 9
 
   // Act
   const wrapper = shallow(<App auth={{isAuthenticated: true}} dispatch={() => {}}/>)

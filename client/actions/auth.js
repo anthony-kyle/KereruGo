@@ -67,14 +67,10 @@ export function logoutUser (confirmSuccess) {
 }
 
 export function registerUserRequest (creds, confirmSuccess) {
-  console.log('are you here?', creds)
   return (dispatch) => {
-    console.log(dispatch)
     register(creds)
       .then(userInfo => {
-        console.log("74", userInfo)
         dispatch(receiveLogin(userInfo))
-        console.log("76", userInfo)
         confirmSuccess()
       })
       .catch(err => dispatch(loginError(err)))

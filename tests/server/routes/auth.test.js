@@ -15,7 +15,7 @@ test('/register succeeds for new user', () => {
   // Mock userExists to return false
   usersDb.userExists.mockImplementation(username => Promise.resolve(false))
   // Mock createUser to work (resolve)
-  usersDb.createUser.mockImplementation((username, first_name, last_name, password) => Promise.resolve())
+  usersDb.createUser.mockImplementation(() => Promise.resolve())
   // Mock getUserByUsername to work (resolve)
   usersDb.getUserByUsername.mockImplementation((username) => Promise.resolve({ username: username }))
 

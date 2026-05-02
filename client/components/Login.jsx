@@ -16,7 +16,6 @@ class Login extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault();
     let { username, password } = this.state;
-    // console.log(this.state)
     const confirmSuccess = () => {
       this.props.history.push("/map");
     };

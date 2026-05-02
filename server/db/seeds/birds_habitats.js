@@ -34,7 +34,10 @@ exports.seed = function(knex) {
         {bird_id: 15, habitat_id: 4},
         {bird_id: 16, habitat_id: 1},
         {bird_id: 17, habitat_id: 1},
-        {bird_id: 18, habitat_id: 1}
+        {bird_id: 18, habitat_id: 1},
+        {bird_id: 19, habitat_id: 3},
+        {bird_id: 20, habitat_id: 1},
+        {bird_id: 20, habitat_id: 3}
       ]);
     });
 };
