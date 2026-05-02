@@ -35,7 +35,13 @@ export class Map extends React.Component {
         .then((locations) => {
           this.props.saveLocations(locations)
     })
-        .catch((err) => console.log(err));
+        .catch((err) =>
+          console.error(
+            "apiGetAllLocations failed:",
+            err?.response?.body ?? err?.message ?? err,
+            err
+          )
+        );
     }
   }
 

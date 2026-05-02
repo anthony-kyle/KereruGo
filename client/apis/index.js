@@ -97,5 +97,10 @@ export function apiGetProfileImage(userId) {
 
 // Global error handler for front end api's
 function errorHandler(err) {
-  console.error(err);
+  const detail =
+    err?.response?.body ??
+    err?.response?.text ??
+    err?.message ??
+    (typeof err?.status === "number" ? `HTTP ${err.status}` : null);
+  console.error("API error:", detail ?? err, err);
 }
