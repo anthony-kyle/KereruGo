@@ -22,4 +22,15 @@ server.use(express.static(publicRoot))
 server.use('/api/v1', authRoutes)
 server.use('/api/v1/birds', birdRoutes)
 
+server.use((err, req, res, next) => {
+  if (res.headersSent) {
+    return next(err)
+  }
+  const status = Number(err.status || err.statusCode) || 500
+  res.status(status).json({
+    errorType: err.code || 'SERVER_ERROR',
+    error: err.message || 'Unexpected server error',
+  })
+})
+
 module.exports = server

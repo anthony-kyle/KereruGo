@@ -36,7 +36,7 @@ function applyAuthRoutes(router, functions) {
       .getUserByName(req.body.username)
       .then((user) => {
         if (!user) throw new Error(INVALID_CREDENTIALS)
-        return hash.verify(user.hash, req.body.password).then((isValid) => {
+        return hash.verifyHash(user.hash, req.body.password).then((isValid) => {
           if (!isValid) throw new Error(INVALID_CREDENTIALS)
           next()
         })

@@ -2,11 +2,13 @@ const connection = require("./connection");
 const { generateHash } = require("../lib/auth/password");
 
 function createUser(user, db = connection) {
-  const newUser = { ...user };
-  return generateHash(newUser.password).then((passwordHash) => {
-    newUser.hash = passwordHash;
-    delete newUser.password;
-    return db("users").insert(newUser);
+  const row = {
+    username: user.username,
+    user_img: user.user_img ?? null,
+  };
+  return generateHash(user.password).then((passwordHash) => {
+    row.hash = passwordHash;
+    return db("users").insert(row);
   });
 }
 

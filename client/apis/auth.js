@@ -7,9 +7,15 @@ const errorMessages = {
 }
 
 function mapAuthError (err) {
-  const code = err.response?.body?.errorType || err.message
+  const body = err.response?.body
+  const code = body?.errorType || err.message
+  const detail =
+    typeof body?.error === 'string'
+      ? body.error
+      : body?.error?.title
   const msg = errorMessages[code]
-  throw msg || err.message
+  const fallback = [code, detail].filter(Boolean).join(': ') || err.message
+  throw new Error(msg || fallback || 'Request failed')
 }
 
 export function register (creds) {

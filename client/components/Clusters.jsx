@@ -21,16 +21,22 @@ function Clusters (props) {
   }))
 
   const getBoundsArray = () => {
-    const bounds = mapRef.current
-    .getMap()
-    .getBounds()
-    const {_ne, _sw} = bounds
-    return [_sw.lng, _sw.lat, _ne.lng, _ne.lat]
+    try {
+      const map =
+        mapRef?.current && typeof mapRef.current.getMap === "function"
+          ? mapRef.current.getMap()
+          : null
+      if (!map || typeof map.getBounds !== "function") return null
+      const b = map.getBounds()
+      const sw = b.getSouthWest()
+      const ne = b.getNorthEast()
+      return [sw.lng, sw.lat, ne.lng, ne.lat]
+    } catch {
+      return null
+    }
   }
 
-  const bounds = mapRef.current 
-  ? getBoundsArray()
-  : null
+  const bounds = getBoundsArray()
 
   // Get Clusters
   const { clusters } = useSuperCluster({
