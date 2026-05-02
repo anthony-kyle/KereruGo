@@ -1,6 +1,6 @@
 import request from "superagent";
 
-import { getEncodedToken } from "authenticare/client";
+import { getEncodedToken } from "../auth/session";
 
 const apiUrl = "/api/v1/birds";
 

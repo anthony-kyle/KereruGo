@@ -1,5 +1,5 @@
 const connection = require("./connection");
-const { generateHash } = require("authenticare/server");
+const { generateHash } = require("../lib/auth/password");
 
 function createUser(user, db = connection) {
   const newUser = { ...user };

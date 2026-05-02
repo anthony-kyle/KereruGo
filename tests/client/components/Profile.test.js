@@ -1,11 +1,10 @@
 import React from 'react'
 import { mount, shallow } from 'enzyme'
 
-jest.mock('../../../client/apis', () => {
-    return {
-        apiGetUserScrapbook: () => Promise.resolve([])
-    }
-})
+jest.mock('../../../client/apis/index', () => ({
+  apiGetUserScrapbook: () => Promise.resolve([]),
+  apiGetUserBadges: () => Promise.resolve([]),
+}))
 
 import {Profile} from '../../../client/components/Profile'
 // test('<Profile />', () => {
@@ -22,7 +21,7 @@ test('Profile has h3', () => {
     const expected = 1
   
     // Act
-    const wrapper = shallow(<Profile auth={{isAuthenticated: false, user:{username:"admin"}}} progress={{totalBirds:null}}/>)
+    const wrapper = shallow(<Profile auth={{isAuthenticated: false, user:{username:"admin", id: 1}}} scrapbook={[]} badges={[]} progress={{totalBirds: 1, foundCount: 0}} dispatch={() => {}} />)
     const actual = wrapper.find('h3').length
   
     // Assert

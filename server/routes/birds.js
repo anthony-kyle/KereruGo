@@ -1,5 +1,5 @@
 const express = require("express");
-const { getTokenDecoder } = require("authenticare/server");
+const { getTokenDecoder } = require("../lib/auth/jwt");
 //Beneath this line introduce Multer and upload middleware.
 
 const {
@@ -302,7 +302,8 @@ async function insertImage(req, res, next) {
 
 function errorHandler(err, req, res, next) {
   console.log(err);
-  if (err.name === "UnauthorizedError") {
+  const status = err.status || (err.name === "UnauthorizedError" ? 401 : 500);
+  if (status === 401 || err.name === "UnauthorizedError") {
     res.status(401).json({ message: "Access denied." });
   } else {
     res.status(500).json({ message: "Something went RATHER wrong. Shame." });
